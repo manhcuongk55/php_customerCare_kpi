@@ -1,0 +1,70 @@
+RewriteEngine On
+RewriteRule ^home/?$ 		index.php
+
+RewriteRule ^login/?$		index.php?com=members&viewtype=login
+RewriteRule ^dashboard/?$ 	index.php?com=members&viewtype=dashboard
+RewriteRule ^dashboard/([0-9]+)?$ 	index.php?com=members&viewtype=dashboard&id=$1
+RewriteRule ^dashboard_boss/?$ 	index.php?com=members&viewtype=dashboard_boss
+
+RewriteRule ^logout/?$ 	 	index.php?com=members&viewtype=logout
+RewriteRule ^forgotpass/?$  index.php?com=members&viewtype=forgot
+RewriteRule ^changepass/?$  index.php?com=members&viewtype=changepass
+RewriteRule ^changetpass/?$  index.php?com=members&viewtype=changetpass
+
+RewriteRule ^mgmt_member.html/?$ 	index.php?com=members&viewtype=mgmt_member
+RewriteRule ^mgmt_member/edit/([0-9]+)?$ 	index.php?com=members&viewtype=add&id=$1
+RewriteRule ^mgmt_member/del/([0-9]+)?$ 	index.php?com=members&viewtype=mgmt_member&del=$1
+RewriteRule ^mgmt_member/add.html?$ 	index.php?com=members&viewtype=add
+
+RewriteRule ^mgmt_customer.html/?$ 	index.php?com=customer&viewtype=mgmt_customer
+RewriteRule ^mgmt_customer/add.html?$ 	index.php?com=customer&viewtype=add
+RewriteRule ^mgmt_customer/edit/([0-9]+)/type/([0-9]+)?$ 	index.php?com=customer&viewtype=add&id=$1&type=$2
+RewriteRule ^mgmt_customer/del/([0-9]+)?$ 	index.php?com=customer&viewtype=mgmt_customer&del=$1
+
+RewriteRule ^note.html/?$ 	index.php?com=note&viewtype=mgmt_note
+RewriteRule ^note/del/([0-9]+)?$ 	index.php?com=note&viewtype=mgmt_note&del=$1
+RewriteRule ^note/id/([0-9]+)?$ 	index.php?com=note&viewtype=mgmt_note&id=$1
+
+RewriteRule ^meet.html/?$ 	index.php?com=meet&viewtype=mgmt_meet
+RewriteRule ^meet/add.html?$ 	index.php?com=meet&viewtype=add
+RewriteRule ^meet/id/([0-9]+)?$ 	index.php?com=meet&viewtype=add&id=$1
+RewriteRule ^meet/del/([0-9]+)?$ 	index.php?com=meet&viewtype=mgmt_meet&del=$1
+
+RewriteRule ^mgmt_config.html/?$ 	index.php?com=config&viewtype=mgmt_config
+RewriteRule ^mgmt_config/del/([0-9]+)?$ 	index.php?com=config&viewtype=mgmt_config&del=$1
+RewriteRule ^mgmt_config/add.html?$ 	index.php?com=config&viewtype=add_config
+
+RewriteRule ^config_relation.html?$ 	index.php?com=config&viewtype=config_relation
+RewriteRule ^config_relation/id/([0-9]+)?$ 	index.php?com=config&viewtype=config_relation&id=$1
+RewriteRule ^config_relation/del/([0-9]+)?$ 	index.php?com=config&viewtype=config_relation&del=$1
+
+RewriteRule ^config_hobby.html?$ 	index.php?com=config&viewtype=config_hobby
+RewriteRule ^config_hobby/id/([0-9]+)?$ 	index.php?com=config&viewtype=config_hobby&id=$1
+RewriteRule ^config_hobby/del/([0-9]+)?$ 	index.php?com=config&viewtype=config_hobby&del=$1
+
+RewriteRule ^config_display.html?$ 	index.php?com=config&viewtype=config_display
+RewriteRule ^config_display/id/([0-9]+)?$ 	index.php?com=config&viewtype=config_display&id=$1
+RewriteRule ^config_display/del/([0-9]+)?$ 	index.php?com=config&viewtype=config_display&del=$1
+
+RewriteRule ^report_customer.html/?$ 	index.php?com=report&viewtype=report_customer
+RewriteRule ^detail-cusid-([0-9]+)-type-([0-9]+)/?$ 	index.php?com=report&viewtype=detail_customer&cusid=$1&type=$2
+
+RewriteRule ^mgmt_export.html/?$ 	index.php?com=export&viewtype=mgmt_export
+RewriteRule ^mgmt_export_approved.html([0-9]+)?$ 	index.php?com=export&viewtype=mgmt_export&id_approved=$1
+RewriteRule ^mgmt_export_reject.html([0-9]+)?$ 	index.php?com=export&viewtype=mgmt_export&id_approved=$1
+
+RewriteRule ^list_sms/?$ 	index.php?com=sms&viewtype=list_sms
+RewriteRule ^list_sms/del/([0-9]+)?$ 	index.php?com=sms&viewtype=list_sms&del=$1
+
+RewriteRule ^download/?$ 	index.php?com=members&viewtype=download
+
+<Ifmodule mod_php5.c>
+	php_flag display_errors  on
+</Ifmodule>
+
+php_value memory_limit 300M
+php_value post_max_size 1000M
+php_value upload_max_filesize 300M
+
+php_value max_input_time 3000
+php_value max_execution_time 3000 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<position>
+		<option>header</option>
+		<option>navitor</option>
+		<option>footer</option>
+		<option>top</option>
+		<option>bottom</option>
+		<option>banner</option>
+		<option>path</option>
+		<option>left</option>
+		<option>right</option>
+		<option>user1</option>
+		<option>user2</option>
+		<option>user3</option>
+		<option>user4</option>
+		<option>user5</option>
+		<option>user6</option>
+		<option>user7</option>
+		<option>user8</option>
+		<option>user9</option>
+		<option>user10</option>
+		<option>banner1</option>
+		<option>banner2</option>
+		<option>banner3</option>
+		<option>banner4</option>
+		<option>banner5</option>
+		<option>banner6</option>
+		<option>banner7</option>
+		<option>banner8</option>
+		<option>banner9</option>
+		<option>banner10</option>
+	</position>
+</root>
