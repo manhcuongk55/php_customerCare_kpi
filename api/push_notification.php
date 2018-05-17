@@ -51,6 +51,11 @@ if (isset($_POST['type_notify'])) {
                 );
             } else {
                 // IOS
+                $fields = array (
+                    'to' => $firebaseId,
+                    'notification'  => $msg,
+                    'priority'=>'high'
+                );
             }
             
             sendMessToGoogleCloud($fields, API_ACCESS_KEY);
@@ -76,12 +81,18 @@ if (isset($_POST['type_notify'])) {
 
 
         if ($typePlatform == PLATFORM_ANDROID) {
+            // Android
             $fields = array (
                 'to' => $firebaseId,
                 'data'  => $msg
             );
         } else {
             // IOS
+            $fields = array (
+                'to' => $firebaseId,
+                'notification'  => $msg,
+                'priority'=>'high'
+            );
         }
         sendMessToGoogleCloud($fields, API_ACCESS_KEY);
 
@@ -103,28 +114,36 @@ if (isset($_POST['type_notify'])) {
                 'sound' => 'mySound'/*Default sound*/
         );
         if ($typePlatform == PLATFORM_ANDROID) {
+            // Android
             $fields = array (
                 'to' => $firebaseId,
                 'data'  => $msg
             );
         } else {
             // IOS
+             $fields = array (
+                'to' => $firebaseId,
+                'notification'  => $msg,
+                'priority'=>'high'
+            );
         }
         sendMessToGoogleCloud($fields, API_ACCESS_KEY);
 
     }
     
-
 } else {
 
     // =====================Lập lịch gưi notification tới device=========================
     // get dach sach nguoi dung
     $aryMember = array();
     $objMem->getList("","");
+    $firebaseIdSuper = "";
+    $typePlatformSuper = "";
     while ($rs=$objMem->Fetch_Assoc()) {
         array_push($aryMember, $rs);
         if ($rs['permistion'] == 2) {
             $firebaseIdSuper = $rs['firebase_id'];
+            $typePlatformSuper = $rs['type_platform'];
         }
         // var_dump($rs);
     }
@@ -135,13 +154,19 @@ if (isset($_POST['type_notify'])) {
         $curDay = date("d");
         $curMonth = date("m");
         $aryFirebaseID = array();
+        $aryTypePlatform = array();
         $aryMessage = array();
 
         array_push($aryFirebaseID, $firebaseIdSuper);
+        array_push($aryTypePlatform, $typePlatformSuper);
+
         if ($obj['firebase_id'] != "") {
             $firebaseId = $obj['firebase_id'];
+            $typePlatform = $obj['type_platform'];
+
             if ($firebaseId != $firebaseIdSuper) {
                 array_push($aryFirebaseID, $firebaseId);
+                array_push($aryTypePlatform, $typePlatform);
             }
         }
         
@@ -171,7 +196,10 @@ if (isset($_POST['type_notify'])) {
                     $body = "Ngày ".$cusDay."-".$cusMonth." thành lập tổ chức ".$cusName;
                 }
                 // push message to array
-                array_push($aryMessage, $body);
+                $objBody = new BodyMessage();
+                $objBody->Type = NOTIFY_BIRTHDAY;
+                $objBody->Content = $body;
+                array_push($aryMessage, $objBody);
                
             } else {
                 // NOT TODO
@@ -185,20 +213,31 @@ if (isset($_POST['type_notify'])) {
         // die;
         while ($rs=$objMeet->Fetch_Assoc()) {
             $cusName = $objCustomer->getCustomerName($rs['customer_id']);
-
+            $status = $rs['type'];
             $cusDay = date("d", strtotime($rs['datetime']));
             $cusMonth = date("m", strtotime($rs['datetime']));        
 
             $offsetDay = $cusDay-$curDay;
             $offsetMonth = $cusMonth-$curMonth;
             $body = "";
+            $scheduleType = "";
+            if ($status == "tang_qua") $scheduleType = "Tặng quà";
+            if ($status == "hop_hanh") $scheduleType = "Họp";
+            if ($status == "dam_hieu") $scheduleType = "Đám hiếu";
+            if ($status == "dam_hi") $scheduleType = "Đám hỉ";
+            if ($status == "di_choi") $scheduleType = "Đi chơi";
+            if ($status == "lien_hoan") $scheduleType = "Liên hoan";
+            if ($status == "gap_mat") $scheduleType = "Gặp mặt";
 
             if (($cusMonth == $curMonth && ($offsetDay > 0 && $offsetDay < 2)) ||
                 ($cusMonth > $curMonth && ($offsetMonth == 1))) {
                 
-                $body = "Ngày ".date('d-m-Y', strtotime($rs['datetime']))." có lịch gặp khách hàng ".$cusName;
+                $body = "Ngày ".date('d-m-Y', strtotime($rs['datetime']))." ".$scheduleType." khách hàng ".$cusName;
                 // push message to array
-                array_push($aryMessage, $body);
+                $objBody = new BodyMessage();
+                $objBody->Type = NOTIFY_SCHEDULE;
+                $objBody->Content = $body;
+                array_push($aryMessage, $objBody);
                
             } else {
                 // NOT TODO
@@ -206,21 +245,50 @@ if (isset($_POST['type_notify'])) {
 
         } // end while
 
+        // Sinh nhật người thân khách hàng
+
+        // Sinh nhật người đại diện doanh nghiêp
+
+        // Ngày thành lập đối tác doanh nghiệp
+
+        // Sinh nhật người đại diện tổ chức
+
+        // Ngày thành lập đối tác của tổ chức
+
         // send multiple device (Giám đốc và nhân viên)
+        $jj=0;
         foreach ($aryFirebaseID as $firebaseId) {
-            foreach ($aryMessage as $mess) {
+            foreach ($aryMessage as $object) {
                 // create message
+                $title = "Thông báo";
+                if ($object->Type == NOTIFY_SCHEDULE) {
+                    $title = "Lịch hẹn";
+                } else if ($object->Type == NOTIFY_BIRTHDAY) {
+                    $title = "Sinh nhật";
+                }
+
                 $msg = array (
-                    'title' => 'Thông báo',
-                    'body'  => $mess,
+                    'title' => $title,
+                    'type' => $object->Type,
+                    'body'  => $object->Content,
                         'icon'  => 'myicon',/*Default Icon*/
                         'sound' => 'mySound'/*Default sound*/
                 );
+                // var_dump($msg);
                 // echo $firebaseId;
-                $fields = array (
-                    'to'        => $firebaseId,
-                    'data'  => $msg
-                );
+                if (isset($aryTypePlatform[$jj]) && $aryTypePlatform[$jj] == PLATFORM_ANDROID) {
+                    $fields = array (
+                        'to'        => $firebaseId,
+                        'data'  => $msg
+                    );
+                } else {
+                    $fields = array (
+                        'to' => $firebaseId,
+                        'notification'  => $msg,
+                        'priority'=>'high'
+                    );
+                }
+                
                 sendMessToGoogleCloud($fields, API_ACCESS_KEY);
             }
             
@@ -251,6 +319,13 @@ function sendMessToGoogleCloud($fields, $API_ACCESS_KEY) {
     #Echo Result Of FireBase Server
     echo $result; 
 
+}
+
+class BodyMessage{
+    private $pro=array(
+        'type'=>'',
+        'Content'=>''
+    );
 }
 
 ?>

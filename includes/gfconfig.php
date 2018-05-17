@@ -141,5 +141,11 @@
 	
 	define("PLATFORM_ANDROID", 0);
 	define("PLATFORM_IOS", 1);
+
+	define("NOTIFY_BIRTHDAY", 0);
+	define("NOTIFY_APPROVE", 1);
+	define("NOTIFY_REQUEST", 2);
+	define("NOTIFY_REJECT", 3);
+	define("NOTIFY_SCHEDULE", 4);
 	
 ?>
