@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 16, 2018 lúc 07:19 PM
+-- Thời gian đã tạo: Th5 16, 2018 lúc 08:36 PM
 -- Phiên bản máy phục vụ: 10.1.32-MariaDB
 -- Phiên bản PHP: 5.6.36
 
@@ -110,7 +110,9 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`id`, `mem_id`, `type`, `fullname`, `birthday`, `phone`, `gender`, `avatar`, `diedate`, `birthday_family`, `diedate_family`, `cdate`) VALUES
-(32, 2, 0, 'Trần Xuân Bách', '2018-05-17', '09887765556', 0, '', '1970-01-01', '', '', '2018-05-16');
+(32, 2, 0, 'Trần Xuân Bách', '2018-05-17', '09887765556', 0, '', '1970-01-01', '', '', '2018-05-16'),
+(39, 2, 1, 'Viettel', '2018-05-17', '02347788909', 0, '', '0000-00-00', '', '', '2018-05-16'),
+(40, 2, 2, 'Tổ chúc Unesco', '1997-05-17', '0988777666', 0, '', '0000-00-00', '', '', '2018-05-16');
 
 -- --------------------------------------------------------
 
@@ -155,7 +157,19 @@ INSERT INTO `tbl_customer_detail` (`id`, `customer_id`, `sub_cat_id`, `json`, `c
 (2529, 32, 22, '{\"sub_cat_id\":\"22\",\"ly_lich_cong_tac\":[]}', '2018-05-16'),
 (2530, 32, 23, '{\"sub_cat_id\":\"23\",\"quan_he_xa_hoi\":[{\"cap_do_quan_he\":\"nha_nuoc\",\"hinh_thuc_quan_he\":\"truc_tiep\",\"dau_moi\":\"Trần Hồng Hà\",\"loai_quan_he\":\"dong_nghiep\",\"so_dien_thoai\":\"09888777888\",\"co_quan\":\"UBND Huyện \",\"dia_chi\":\"Bình Lục\"}]}', '2018-05-16'),
 (2531, 32, 39, '{\"sub_cat_id\":\"39\",\"phim_anh\":[{\"the_loai_yeu_thich\":\"Kinh dị\",\"dien_vien_yeu_thich\":\"John\",\"dac_diem_luu_y\":\"Càng kinh dị càng thích\"}]}', '2018-05-16'),
-(2532, 32, 41, '{\"sub_cat_id\":\"41\",\"hong_chuyen\":[{\"thich_hong_chuyen_gi\":\"Blala\"}]}', '2018-05-16');
+(2532, 32, 41, '{\"sub_cat_id\":\"41\",\"hong_chuyen\":[{\"thich_hong_chuyen_gi\":\"Blala\"}]}', '2018-05-16'),
+(2551, 39, 24, '{\"sub_cat_id\":\"24\",\"thong_tin_co_ban\":{\"ten_doanh_nghiep\":\"Viettel\",\"loai_hinh_kinh_doanh\":\"Viễn thông\",\"cap_do\":\"tap_doan\",\"ngay_thanh_lap\":\"17-05-2018\",\"dia_chi\":\"Trần Hữu Dực\",\"giay_phep\":\"GP--1\",\"so_dien_thoai\":\"02347788909\",\"ma_so_thue\":\"MST0001\",\"tai_khoan_ngan_hang\":\"777778996655\",\"ngan_hang\":\"Vietcombank\",\"mo_hinh_to_chuc\":\"\"}}', '2018-05-16'),
+(2552, 39, 25, '{\"sub_cat_id\":\"25\",\"thong_tin_khac\":{\"doanh_so_nam_1\":\"1000000000\",\"doanh_so_nam_2\":\"1000000000\",\"doanh_so_nam_3\":\"1000000000\",\"don_vi_tien_te_doanh_so\":\"VND\",\"chi_phi_hoat_dong_mua_sam_1\":\"1000000000\",\"chi_phi_hoat_dong_mua_sam_2\":\"1000000000\",\"chi_phi_hoat_dong_mua_sam_3\":\"1000000000\",\"don_vi_tien_te_mua_sam\":\"VND\",\"thu_hang\":\"3\"}}', '2018-05-16'),
+(2553, 39, 26, '{\"sub_cat_id\":\"26\",\"thong_tin_gan_dinh_danh_co_the\":[{\"ho_ten\":\"Nguyễn Mạnh Hùng\",\"bi_danh\":\"Hùng \",\"ngay_sinh\":\"17-05-1954\",\"menh\":\"\",\"noi_sinh\":\"Hà Nội\",\"gioi_tinh\":\"0\",\"tien_su_benh\":\"Không có\",\"hinh_anh\":\"\"}]}', '2018-05-16'),
+(2554, 39, 27, '{\"sub_cat_id\":\"27\",\"thong_tin_khac\":[{\"chuc_danh\":\"Giám đốc\",\"so_dien_thoai\":\"0988765544\",\"noi_o_hien_tai\":\"Hà Nội\",\"tinh_trang_ket_hon\":\"da_ket_hon\",\"so_thich_dac_biet\":\"Sách\"}]}', '2018-05-16'),
+(2555, 39, 31, '{\"sub_cat_id\":\"31\",\"thong_tin_dinh_danh_gan_voi_to_chuc\":[{\"ten_doanh_nghiep\":\"FPT\",\"loai_hinh_kinh_doanh\":\"CNTT\",\"cap_do\":\"tap_doan\",\"ngay_thanh_lap\":\"17-05-2005\",\"dia_chi\":\"Duy Tân Cầu Giấy\",\"giay_phep\":\"GP009\",\"so_dien_thoai\":\"0988777888\",\"ma_so_thue\":\"MST456789\",\"so_tai_khoan\":\"999888766555\",\"ngan_hang\":\"TPBank\",\"hinh_anh\":\"\"}]}', '2018-05-16'),
+(2556, 39, 32, '{\"sub_cat_id\":\"32\",\"thong_tin_nguoi_dai_dien_doi_tac\":[{\"ho_ten\":\"Nguyễn Văn Ngọc\",\"bi_danh\":\"Ngọc râu\",\"ngay_sinh\":\"17-05-1955\",\"menh\":\"\",\"gioi_tinh\":\"0\",\"tinh_trang_ket_hon\":\"da_ket_hon\",\"so_thich_dac_biet\":\"Sách\",\"hinh_anh\":\"\"}]}', '2018-05-16'),
+(2557, 40, 33, '{\"sub_cat_id\":\"33\",\"thong_tin_co_ban\":{\"ten_to_chuc\":\"Tổ chúc Unesco\",\"loai_hinh_hoat_dong\":\"Cộng đồng\",\"cap_do\":\"chinh_phu\",\"ngay_thanh_lap\":\"17-05-1997\",\"dia_chi\":\"Hà Nội\",\"so_dien_thoai\":\"0988777666\",\"so_tai_khoan\":\"8888777665444\",\"ngan_hang\":\"Martinbank\",\"mo_hinh_to_chuc\":\"\"}}', '2018-05-16'),
+(2558, 40, 34, '{\"sub_cat_id\":\"34\",\"thong_tin_khac\":{\"chi_phi_mua_sam_1\":\"200000000\",\"chi_phi_mua_sam_2\":\"300000000\",\"chi_phi_mua_sam_3\":\"556000000\",\"don_vi_tien_te\":\"VND\"}}', '2018-05-16'),
+(2559, 40, 35, '{\"sub_cat_id\":\"35\",\"thong_tin_gan_dinh_danh_co_the\":[{\"ho_ten\":\"Trần Thị Hà \",\"bi_danh\":\"Hà xinh\",\"ngay_sinh\":\"17-05-1972\",\"menh\":\"\",\"noi_sinh\":\"Hà Nội\",\"gioi_tinh\":\"0\",\"tien_su_benh\":\"Chưa có\",\"hinh_anh\":\"\"}]}', '2018-05-16'),
+(2560, 40, 36, '{\"sub_cat_id\":\"36\",\"thong_tin_khac\":[{\"chuc_danh\":\"Giám đốc\",\"so_dien_thoai\":\"099887655\",\"noi_o_hien_tai\":\"Hà Nội\",\"tinh_trang_hon_nhan\":\"da_ket_hon\",\"so_thich_dac_biet\":\"Sách\"}]}', '2018-05-16'),
+(2561, 40, 37, '{\"sub_cat_id\":\"37\",\"thong_tin_dinh_danh_gan_to_chu\":[{\"ten_to_chuc\":\"Momo\",\"loai_hinh_kinh_doanh\":\"CNTT\",\"cap_do\":\"cuc\",\"ngay_thanh_lap\":\"17-05-2014\",\"dia_chi\":\"Hà Nội\",\"so_dien_thoai\":\"09988877766\",\"so_tai_khoan\":\"888877799966\",\"ngan_hang\":\"TPBank\",\"hinh_anh\":\"\"}]}', '2018-05-16'),
+(2562, 40, 38, '{\"sub_cat_id\":\"38\",\"thong_tin_nguoi_dai_dien_cua_doi_tac\":[{\"ho_ten\":\"Giám đốc\",\"bi_danh\":\"Không có\",\"ngay_sinh\":\"\",\"menh\":\"\",\"gioi_tinh\":\"da_ket_hon\",\"tinh_trang_hon_nhan\":\"0\",\"so_thich_dac_biet\":\"Không có thông tin\",\"hinh_anh\":\"\"}]}', '2018-05-16');
 
 -- --------------------------------------------------------
 
@@ -497,6 +511,13 @@ CREATE TABLE `tbl_meet` (
   `note` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Đang đổ dữ liệu cho bảng `tbl_meet`
+--
+
+INSERT INTO `tbl_meet` (`id`, `mem_id`, `customer_id`, `content`, `status`, `datetime`, `type`, `address`, `image`, `result`, `next_time`, `next_content`, `note`) VALUES
+(1, 2, 32, 'Tặng quà ', 'st_waiting', '2018-05-18 00:00:00', 'tang_qua', 'Cafe Zone', '', '', '1970-01-01 08:00:00', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -808,13 +829,13 @@ ALTER TABLE `tbl_common`
 -- AUTO_INCREMENT cho bảng `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_customer_detail`
 --
 ALTER TABLE `tbl_customer_detail`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2551;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2563;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_display`
@@ -844,7 +865,7 @@ ALTER TABLE `tbl_group`
 -- AUTO_INCREMENT cho bảng `tbl_meet`
 --
 ALTER TABLE `tbl_meet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_member_level`
