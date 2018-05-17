@@ -17,9 +17,10 @@
 	$objDisplay->getList(" and sub_cat_id='".SUB_LYLICH_CONGTAC."'", ' order by id asc');
 	$rs = $objDisplay->Fetch_Assoc();
 	$displayItem = $rs['display_item'];
+	echo "<input type=\"hidden\" name=\"num_llct\" id=\"num_llct\" value=".$displayItem.">";
 	for($i = 0; $i < $displayItem; $i++) {
 ?>
-<input type="hidden" name="num_llct" value="<?php echo $displayItem;?>">
+
 <h4 class="row-seperator-header"><i class="fa fa-plus"></i> Giai đoạn <?php echo $i+1;?></h4>
 <div class="row">
 	<section class="col col-2">
@@ -52,11 +53,11 @@
 
 	<section class="col col-4">
 		<label class="label">
-			  Vị trí công tác
+			  Chức danh
 		</label>
 		<label class="input">
 			<i class="icon-append fa fa-bank"></i>
-			<input type="text" name="gr5_<?php echo SUB_LYLICH_CONGTAC;?>_vi_tri_cong_tac[]" value="<?php if(isset($dataEdit[$aliasSubCat][$i]['vi_tri_cong_tac'])) echo $dataEdit[$aliasSubCat][$i]['vi_tri_cong_tac']?>">
+			<input type="text" name="gr5_<?php echo SUB_LYLICH_CONGTAC;?>_chuc_danh[]" value="<?php if(isset($dataEdit[$aliasSubCat][$i]['chuc_danh'])) echo $dataEdit[$aliasSubCat][$i]['chuc_danh']?>">
 		</label>	
 	</section>
 

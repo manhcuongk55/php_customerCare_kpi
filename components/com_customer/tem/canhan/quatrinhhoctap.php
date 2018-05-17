@@ -19,11 +19,12 @@
 	$objDisplay->getList(" and sub_cat_id='".SUB_CN_QUATRINH_HOCTAP."'", ' order by id asc');
 	$rs = $objDisplay->Fetch_Assoc();
 	$displayItem = $rs['display_item'];
+	echo "<input type=\"hidden\" name=\"num_qtht\" id=\"num_qtht\" value=".$displayItem.">";
 	for($i = 0; $i < $displayItem; $i++) {	
 
 
 ?>
-<input type="hidden" name="num_qtht" value="<?php echo $displayItem;?>">
+
 <h4 class="row-seperator-header"><i class="fa fa-plus"></i> Giai đoạn <?php echo $i+1;?></h4>
 <div class="row">
 	<section class="col col-2">

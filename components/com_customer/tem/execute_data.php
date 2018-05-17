@@ -82,6 +82,7 @@ if (isset($_POST['txt_type'])) {
 
 		// get list object option field
 		$objFieldInfo->getList(" AND `sub_cat_id`='".$itemObjSubCat->ID."'" ," ORDER BY `sort` asc");
+		
 		$lstObjFieldInfo = array();
 		while ($rs=$objFieldInfo->Fetch_Assoc()) {
 			$obj = new CLS_FIELD_INFOMATION;
@@ -298,7 +299,7 @@ if (isset($_POST['txt_type'])) {
 		}	
 		// Push data to Array json
 		array_push($arrayJsonData, $strJson);
-		echo $strJson."<br/> -----------------------------------------<br/>";
+		// echo $strJson."<br/> -----------------------------------------<br/>";
 	}
 
 	// die;
