@@ -85,19 +85,25 @@ $icon = "icon-append fa fa-user";
 						<input type="hidden" name="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias']?>[]" value="<?php echo $value->Name?>">
 					<?php endif;?>
 
+					<!-- Trường dữ liệu kiểu text -->
 					<?php if($rs['data_type'] == 'text'): ?>
-					<section class="col col-3 <?php if($rs['alias']=='menh') echo "field_hidden";?>">
-						<label class="label">
-							<?php echo $rs['name']?>
-						</label>
-						<label class="input">
-							<i class="<?php echo $icon;?>"></i>
-							<input type="text" name="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias']?>[]" value="<?php echo $valueData;?>" 
-							id="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias'].'_'.$value->ID;?>">
-						</label>	
-					</section>
+						<?php if ($rs['alias'] == "quan_he"):?>
+							<input type="hidden" name="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias']?>[]" value="<?php echo $value->Name;?>">
+						<?php else:?>
+							<section class="col col-3 <?php if($rs['alias']=='menh') echo "field_hidden";?>">
+								<label class="label">
+									<?php echo $rs['name']?>
+								</label>
+								<label class="input">
+									<i class="<?php echo $icon;?>"></i>
+									<input type="text" name="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias']?>[]" value="<?php echo $valueData;?>" 
+									id="gr3_<?php echo SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE;?>_<?php echo $rs['alias'].'_'.$value->ID;?>">
+								</label>	
+							</section>
+						<?php endif;?>	
 					<?php endif;?>	
 
+					<!-- Trường dữ liệu kiểu textarea -->
 					<?php if($rs['data_type'] == 'textarea'): ?>
 					<section class="col col-3">
 						<label class="label"><?php echo $rs['name']?></label>
@@ -108,6 +114,7 @@ $icon = "icon-append fa fa-user";
 					</section>
 					<?php endif; ?>
 
+					<!-- Trường dữ liệu kiểu file -->
 					<?php if($rs['data_type'] == 'file'): ?>
 					<section class="col col-3">
 						<label class="label"><?php echo $rs['name']?></label>
@@ -127,6 +134,7 @@ $icon = "icon-append fa fa-user";
 					</section>					
 					<?php endif; ?>
 
+					<!-- Trường dữ liệu kiểu radio -->
 					<?php if($rs['data_type'] == 'radio'): ?>
 						<section class="col col-3">
 							<label class="label"><?php echo $rs['name']?></label>

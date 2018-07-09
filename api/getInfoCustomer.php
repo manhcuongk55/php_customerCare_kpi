@@ -37,10 +37,12 @@ if (isset($JSON['cus_id'])) {
 		// get alias of category via cat id
 		$alias = $objCat->getAlias($aryCatId[$i]);
 		if ($alias == "qua_trinh_hoc_tap" || $alias == "ly_lich_cong_tac" || $alias == "quan_he_xa_hoi") {
-			$alias.=$alias."_customer";
+			// $alias=$alias."_customer";
+			$strJson = "";	
+		} else {
+			$strJson = "\"$alias\": {";	
 		}
-		// create json 
-		$strJson = "\"$alias\": {";
+		
 		
 		foreach ($aryJsonData as $key => $value) {
 			$decodeJson = json_decode($value, true);
@@ -54,7 +56,13 @@ if (isset($JSON['cus_id'])) {
 			}
 		}
 
-		$strJson = substr($strJson, 0, strlen($strJson)-1)."}";		
+		
+		if ($alias == "qua_trinh_hoc_tap" || $alias == "ly_lich_cong_tac" || $alias == "quan_he_xa_hoi") {
+			$strJson = substr($strJson, 0, strlen($strJson)-1);
+		} else {
+			$strJson = substr($strJson, 0, strlen($strJson)-1)."}";
+		}
+
 		$dataReturn.= $strJson. ",";		
 	}
 	$dataReturn = "{".substr($dataReturn, 0, strlen($dataReturn)-1)."}";		

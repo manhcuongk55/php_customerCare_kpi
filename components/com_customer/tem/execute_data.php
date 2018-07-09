@@ -82,6 +82,7 @@ if (isset($_POST['txt_type'])) {
 
 		// get list object option field
 		$objFieldInfo->getList(" AND `sub_cat_id`='".$itemObjSubCat->ID."'" ," ORDER BY `sort` asc");
+
 		$lstObjFieldInfo = array();
 		while ($rs=$objFieldInfo->Fetch_Assoc()) {
 			$obj = new CLS_FIELD_INFOMATION;
@@ -126,7 +127,6 @@ if (isset($_POST['txt_type'])) {
 
 					} else {
 						// Data du lieu dang POST thuan khong phai mang
-
 						$strJson.= '"'.$itemFieldInfo->Alias.'":'.'"'.$data.'"'.',';	
 					}
 					
@@ -134,6 +134,7 @@ if (isset($_POST['txt_type'])) {
 					// Save gioi tinh/tinh trang hon nhan quan he gia dinh
 					if (($prefix == "gr3_19_" && $itemFieldInfo->Alias == "gioi_tinh") || 
 						($prefix == "gr3_20_" && $itemFieldInfo->Alias == "tinh_trang_ket_hon")) {
+
 						if (count($aryData) > 0) {
 							for ($i=0; $i < count($aryData); $i++) { 
 								$dem = $i+1;
@@ -177,11 +178,18 @@ if (isset($_POST['txt_type'])) {
 								}
 						        else{ // No error found! Move uploaded files
 						            if(move_uploaded_file($_FILES[$namePost]["tmp_name"][$f], $path.$nameFile)) {
-						            	$strFile = $path.$nameFile;
+
+						            	if ($prefix == "gr3_19_") {
+						            		$strFile .= $path.$nameFile.",";	
+						            	} else {
+						            		$strFile = $path.$nameFile;
+						            	}
 						            }
 						        }
 						    }
 						} // end foreach
+
+
 						// die($strFile);
 						// TH chỉnh sửa thông tin cá nhân, không thực hiện upload ảnh mới, sẽ lấy đường dẫn ảnh cũ
 						if (isset($_POST['txt_id']) && $strFile != "") {
@@ -189,10 +197,19 @@ if (isset($_POST['txt_type'])) {
 						}
 						// end
 						$strFile = str_replace("../", "", $strFile);
+						// echo $strFile;
 						$strJson.= '"'.$itemFieldInfo->Alias.'":'.'"'.$strFile.'"'.',';	
-
+						// echo $strJson . "<br/>";
 						// Push array image
-						$arrayImage = $_FILES[$namePost]['name'];
+						if ($prefix == "gr3_19_") {
+							$strFile = substr($strFile, 0, strlen($strFile)-1);
+						}
+						
+						array_push($arrayImage, $strFile);
+						// $arrayImage = $strFile;
+
+						// echo $strFile;
+						// $arrayImage = $_FILES[$namePost]['name'];
 						
 					} // end if
 					
@@ -211,7 +228,7 @@ if (isset($_POST['txt_type'])) {
 			for ($i=0; $i < count($aryData); $i++) { 
 				$strs = '{'.substr($aryData[$i], 0, strlen($aryData[$i])-1);
 
-				// Tính toán mệnh
+				// Tính toán mệnh 
 				$objJson = json_decode($strs, TRUE);
 				if (isset($objJson['ngay_sinh'])) {
 					$menh = MenhNguHanh(date("Y", strtotime($objJson['ngay_sinh'])));	
@@ -221,13 +238,25 @@ if (isset($_POST['txt_type'])) {
 
 				// hinh anh
 				if (count($arrayImage) > 0) {
-					$hinhanh = '"hinh_anh":"'.$arrayImage[$i].'"';
-					$strs.=",".$hinhanh;	
+					// Gán hình ảnh đại diện các thành viên trong quan hệ gia đình
+					if ($itemObjSubCat->ID == SUB_CN_QHGD_THONGTIN_DINHDANH_COTHE) {
+						$arrayTemp = split(",", $arrayImage[0]);
+						if (isset($arrayTemp[$i])) {
+							$hinhanh = '"hinh_anh":"'.$arrayTemp[$i].'"';
+							$strs.=",".$hinhanh;		
+						}
+					} else {
+						// Các trường hợp còn lại ảnh đại diện cá nhân, vv...
+						if (isset($arrayImage[$i])) {
+							$hinhanh = '"hinh_anh":"'.$arrayImage[$i].'"';
+							$strs.=",".$hinhanh;		
+						}
+					}
 				}
-				
-				
-				$stringJson = $strs.'}';
-				$stringJson = $strs.'}';
+				// Cộng thêm vào json dấu }
+				$stringJson = $strs.'}';	
+
+				// decode json string			
 				$objStr = json_decode($stringJson, true);
 				
 				if ($itemObjSubCat->Alias == 'qua_trinh_hoc_tap') {
@@ -262,6 +291,7 @@ if (isset($_POST['txt_type'])) {
 
 				
 			}
+
 			if ($strJson != '{"sub_cat_id":"'.$itemObjSubCat->ID.'","'.$itemObjSubCat->Alias.'" : [') {
 				$strJson = substr($strJson, 0, strlen($strJson)-1). "]}";	
 			} else {
@@ -298,7 +328,7 @@ if (isset($_POST['txt_type'])) {
 		}	
 		// Push data to Array json
 		array_push($arrayJsonData, $strJson);
-		echo $strJson."<br/> -----------------------------------------<br/>";
+		// echo $strJson."<br/> -----------------------------------------<br/>";
 	}
 
 	// die;

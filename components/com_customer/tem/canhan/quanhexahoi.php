@@ -17,9 +17,10 @@
 	$objDisplay->getList(" and sub_cat_id='".SUB_QUANHE_XAHOI."'", ' order by id asc');
 	$rs = $objDisplay->Fetch_Assoc();
 	$displayItem = $rs['display_item'];
+	echo "<input type=\"hidden\" name=\"num_qhxh\" id=\"num_qhxh\" value=".$displayItem.">";	
 	for($i = 0; $i < $displayItem; $i++) {
 ?>
-<input type="hidden" name="num_qhxh" id="num_qhxh" value="<?php echo $displayItem;?>">
+
 <h4 class="row-seperator-header"><i class="fa fa-plus"></i> Quan hệ <?php echo $i+1;?></h4>
 <div class="row">
 	<section class="col col-3">
